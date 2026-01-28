@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+:root {
+    --brand-orange: #f4aa38;
+    --brand-gold: #FBB03B;
+    --brand-orange-rgb: 244, 170, 56;
+    --grid-line: rgba(255, 255, 255, 0.05);
+}
+
+/* Vertical Grid System */
+.vertical-grid {
+    background-image: linear-gradient(to right, var(--grid-line) 1px, transparent 1px);
+    background-size: 12.5% 100%;
+    /* 8 columns */
+}
+
+/* Lenis smooth scroll styles */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+/* Smooth scroll base styles */
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    -ms-overflow-style: none;
+    /* IE/Edge */
+}
+
+/* Hide scrollbar - Webkit browsers */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Custom Text Selection */
+::selection {
+    background: rgba(var(--brand-orange-rgb), 0.3);
+    color: #ffffff;
+}
+
+/* Ambient Glow Animation */
+@keyframes ambientGlow {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.15;
+    }
+
+    50% {
+        transform: translate(5%, 5%) scale(1.15);
+        opacity: 0.25;
+    }
+}
+
+.animate-glow-orange {
+    animation: ambientGlow 18s ease-in-out infinite;
+    background: radial-gradient(circle, var(--brand-orange) 0%, transparent 70%);
+}
+
+.animate-glow-gold {
+    animation: ambientGlow 22s ease-in-out infinite;
+    animation-delay: -5s;
+    background: radial-gradient(circle, var(--brand-gold) 0%, transparent 70%);
+}
+
+/* Scrollbar (Invisible but usable) */
+* {
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
