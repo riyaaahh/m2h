@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
 import Navbar from './Navbar'
+import Footer from './Footer'
 
 const Layout = () => {
     const location = useLocation()
@@ -38,11 +39,12 @@ const Layout = () => {
     }, [location.pathname])
 
     return (
-        <div className="min-h-screen bg-black text-white">
+        <div className="min-h-screen bg-white text-black">
             <Navbar />
             <main>
                 <Outlet />
             </main>
+            <Footer />
         </div>
     )
 }

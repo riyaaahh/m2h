@@ -7,15 +7,33 @@ const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
     const [activeDropdown, setActiveDropdown] = useState(null)
     const [showMenu, setShowMenu] = useState(false)
+    const [isVisible, setIsVisible] = useState(true)
+    const [lastScrollY, setLastScrollY] = useState(0)
     const location = useLocation()
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20)
+            const currentScrollY = window.scrollY
+
+            // Update scrolled state
+            setIsScrolled(currentScrollY > 20)
+
+            // Hide/show navbar based on scroll direction
+            if (currentScrollY < lastScrollY || currentScrollY < 100) {
+                // Scrolling up or near top - show navbar
+                setIsVisible(true)
+            } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down and past threshold - hide navbar
+                setIsVisible(false)
+                setActiveDropdown(null) // Close any open dropdowns
+            }
+
+            setLastScrollY(currentScrollY)
         }
-        window.addEventListener('scroll', handleScroll)
+
+        window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
+    }, [lastScrollY])
 
     useEffect(() => {
         setShowMenu(false)
@@ -28,27 +46,17 @@ const Navbar = () => {
     const navLinks = [
         {
             path: '/business',
-            label: 'business',
+            label: 'BUSINESS',
             sublinks: [
-                { label: 'AI', path: '/business#ai' },
-                { label: 'Fintek', path: '/business#fintek' },
+                { label: 'Artificial Intelligence', path: '/business#ai' },
+                { label: 'FinTech', path: '/business#fintek' },
                 { label: 'HRMS', path: '/business#hrms' },
                 { label: 'Healthcare', path: '/business#healthcare' },
             ]
         },
         {
-            path: '/about',
-            label: 'company',
-            sublinks: [
-                { label: 'About Us', path: '/about' },
-                { label: 'Careers', path: '/about#careers' },
-                { label: 'Blogs', path: '/about#blogs' },
-                { label: 'Events', path: '/about#events' },
-            ]
-        },
-        {
             path: '/services',
-            label: 'products',
+            label: 'PRODUCTS',
             sublinks: [
                 { label: 'Facekit AI', path: '/services#facekit' },
                 { label: 'Pilot AI', path: '/services#pilot' },
@@ -60,17 +68,28 @@ const Navbar = () => {
                 { label: 'OfficeKit', path: '/services#officekit' },
             ]
         },
+        {
+            path: '/about',
+            label: 'COMPANY',
+            sublinks: [
+                { label: 'About Us', path: '/about' },
+                { label: 'Careers', path: '/about#careers' },
+                { label: 'Blogs', path: '/about#blogs' },
+                { label: 'Events', path: '/about#events' },
+            ]
+        },
     ]
 
     const isActive = (path) => location.pathname === path
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-black/80 backdrop-blur-lg py-4 shadow-sm' : 'bg-transparent py-8'
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-xl py-4 shadow-sm' : 'bg-transparent py-8'
+                } ${isVisible ? 'translate-y-0' : '-translate-y-full'
                 }`}
         >
-            <div className="max-w-[1440px] mx-auto px-10 flex items-center justify-between">
-                {/* Brand Logo - Refined Nitro Style */}
+            <div className="max-w-[1440px] mx-auto px-10 grid grid-cols-[auto_1fr_auto] items-center relative z-50">
+                {/* Brand Logo */}
                 <Link to="/" className="flex items-center group">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -86,64 +105,47 @@ const Navbar = () => {
                     </motion.div>
                 </Link>
 
-                <div className="flex items-center gap-12">
-                    {/* Minimal Navigation Links */}
+                {/* Centered Navigation Links */}
+                <div className="flex justify-center">
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: showMenu ? 1 : 0 }}
-                        className="hidden md:flex items-center gap-10"
+                        className="hidden md:flex items-center gap-12"
                     >
                         {navLinks.map((link) => (
                             <div
                                 key={link.label}
-                                className="relative"
-                                onMouseEnter={() => setActiveDropdown(link.label)}
+                                className="relative py-2"
+                                onMouseEnter={() => link.sublinks && setActiveDropdown(link.label)}
                                 onMouseLeave={() => setActiveDropdown(null)}
                             >
                                 <Link
                                     to={link.path}
-                                    className={`text-[0.85rem] font-medium tracking-tight transition-all duration-300 ${isActive(link.path) ? 'text-white' : 'text-white hover:text-[#f4aa38]'
+                                    className={`text-[0.85rem] font-semibold tracking-wide transition-all duration-300 relative ${isActive(link.path) || activeDropdown === link.label ? 'text-[#f4aa38]' : 'text-black hover:text-[#f4aa38]'
                                         }`}
                                 >
                                     {link.label}
-                                </Link>
-
-                                <AnimatePresence>
-                                    {activeDropdown === link.label && (
+                                    {(isActive(link.path) || activeDropdown === link.label) && (
                                         <motion.div
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: 5 }}
-                                            className="absolute top-full right-0 pt-6 min-w-[200px]"
-                                        >
-                                            <div className="bg-[#111] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
-                                                <div className="flex flex-col">
-                                                    {link.sublinks.map((sub) => (
-                                                        <Link
-                                                            key={sub.label}
-                                                            to={sub.path}
-                                                            className="px-6 py-4 text-[0.75rem] text-white/40 hover:text-white hover:bg-white/5 transition-colors border-b border-white/5 last:border-0"
-                                                        >
-                                                            {sub.label.toLowerCase()}
-                                                        </Link>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </motion.div>
+                                            layoutId="nav-underline"
+                                            className="absolute -bottom-2 left-0 right-0 h-[2px] bg-[#f4aa38]"
+                                        />
                                     )}
-                                </AnimatePresence>
+                                </Link>
                             </div>
                         ))}
 
                         <Link
                             to="/contact"
-                            className="text-[0.85rem] font-medium tracking-tight text-white hover:text-[#f4aa38] transition-colors"
+                            className="text-[0.85rem] font-semibold tracking-wide text-black hover:text-[#f4aa38] transition-colors uppercase"
                         >
-                            contact
+                            CONTACT
                         </Link>
                     </motion.div>
+                </div>
 
-                    {/* Minimal CTA */}
+                {/* Right Aligned CTA */}
+                <div className="justify-self-end">
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: showMenu ? 1 : 0 }}
@@ -151,13 +153,68 @@ const Navbar = () => {
                     >
                         <Link
                             to="/contact"
-                            className="text-[0.85rem] font-bold tracking-tight text-[#FF5C00] hover:text-[#f4aa38] transition-all duration-300"
+                            className="text-[0.85rem] font-bold tracking-tight text-[#f4aa38] hover:text-black transition-all duration-300 lowercase"
                         >
                             let's talk
                         </Link>
                     </motion.div>
                 </div>
             </div>
+
+            {/* Mega Menu Dropdown */}
+            <AnimatePresence>
+                {activeDropdown && (
+                    <>
+                        {/* Backdrop - Blurs website content below */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="fixed inset-0 bg-black/20 backdrop-blur-[8px] z-40"
+                            onClick={() => setActiveDropdown(null)}
+                        />
+
+                        <motion.div
+                            initial={{ opacity: 0, scaleY: 0.95, y: -10 }}
+                            animate={{ opacity: 1, scaleY: 1, y: 0 }}
+                            exit={{ opacity: 0, scaleY: 0.95, y: -10 }}
+                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            style={{ originY: 0 }}
+                            className="absolute top-full left-0 right-0 bg-white/98 backdrop-blur-xl border-t border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.05)] overflow-hidden"
+                            onMouseEnter={() => setActiveDropdown(activeDropdown)}
+                            onMouseLeave={() => setActiveDropdown(null)}
+                        >
+                            <div className="max-w-[1440px] mx-auto px-10 py-12">
+                                {/* Sublinks Grid */}
+                                <div className="grid grid-cols-4 gap-x-12 gap-y-6">
+                                    {navLinks.find(l => l.label === activeDropdown)?.sublinks.map((sub, idx) => (
+                                        <motion.div
+                                            key={sub.label}
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: idx * 0.05 }}
+                                        >
+                                            <Link
+                                                to={sub.path}
+                                                className="group py-2 block border-b border-black/5 hover:border-[#f4aa38]/30 transition-all duration-300 flex items-center justify-between"
+                                            >
+                                                <span className="text-[1rem] text-black/60 group-hover:text-black group-hover:pl-2 transition-all duration-300 font-medium block capitalize">
+                                                    {sub.label}
+                                                </span>
+                                                <span className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 text-[#f4aa38] text-sm">→</span>
+                                            </Link>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Decorative bottom bar */}
+                            <div className="h-1 w-full bg-gradient-to-r from-[#f4aa38]/10 via-[#f4aa38] to-[#f4aa38]/10"></div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
         </nav>
     )
 }

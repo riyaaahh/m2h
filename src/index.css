@@ -5,7 +5,7 @@
     --brand-orange: #f4aa38;
     --brand-gold: #FBB03B;
     --brand-orange-rgb: 244, 170, 56;
-    --grid-line: rgba(255, 255, 255, 0.05);
+    --grid-line: rgba(0, 0, 0, 0.04);
 }
 
 /* Vertical Grid System */
@@ -48,8 +48,8 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #111111;
     font-family: 'Outfit', sans-serif;
     -ms-overflow-style: none;
     /* IE/Edge */
@@ -62,8 +62,8 @@ body {
 
 /* Custom Text Selection */
 ::selection {
-    background: rgba(var(--brand-orange-rgb), 0.3);
-    color: #ffffff;
+    background: rgba(var(--brand-orange-rgb), 0.15);
+    color: var(--brand-orange);
 }
 
 /* Ambient Glow Animation */
