@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import logo1 from '../assets/images/logos/1.png'
 import logo2 from '../assets/images/logos/2.png'
 import logo3 from '../assets/images/logos/3.png'
@@ -19,6 +20,14 @@ import logo17 from '../assets/images/logos/17.png'
 import logo18 from '../assets/images/logos/18.png'
 
 const Partners = () => {
+    const containerRef = useRef(null)
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"],
+    })
+
+    const y = useTransform(scrollYProgress, [0, 1], [100, -100])
+
     const logos = [
         logo1, logo2, logo3, logo4, logo5, logo6,
         logo7, logo8, logo9, logo10, logo11, logo12,
@@ -29,26 +38,27 @@ const Partners = () => {
     const duplicatedLogos = [...logos, ...logos]
 
     return (
-        <section className="bg-white py-20 overflow-hidden">
+        <section ref={containerRef} className="bg-white py-20 overflow-hidden border-t border-black/10 ">
             <div className="max-w-[1440px] mx-auto px-10 md:px-20">
+
                 {/* Header Section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">
+                <div className="text-center mb-16">
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="max-w-2xl"
+                        style={{ y }}
+                        className="max-w-4xl mx-auto"
                     >
-                        <div className="flex items-center gap-4 text-[0.8rem] font-medium tracking-[0.2em] text-[#f4aa38] mb-8 uppercase">
-                            <span className="w-12 h-[1px] bg-[#f4aa38]"></span>
-                            our partners
-                        </div>
-                        <h2 className="text-[3rem] md:text-[5rem] font-medium leading-[0.9] tracking-tight lowercase text-black">
-                            trusted by <span className="text-black/20">global</span> industry leaders
-                        </h2>
+                        <p className="text-[#f4aa38] tracking-[0.2em] font-medium uppercase mb-6 text-sm">
+                            Our Partners
+                        </p>
+                        <h2 className="text-[3rem] md:text-[5rem] font-medium leading-[1] tracking-tighter text-black">
+                            Trusted By {" "}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f4aa38] to-yellow-500">
+                                Global
+                            </span>{" "}
+                            Experts                        </h2>
                     </motion.div>
                 </div>
+
 
                 {/* Partners Logo Carousel */}
                 <div className="relative group">
@@ -74,7 +84,7 @@ const Partners = () => {
                             {duplicatedLogos.map((logo, index) => (
                                 <div
                                     key={index}
-                                    className="w-32 md:w-40 h-20 flex-shrink-0 flex items-center justify-center hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer"
+                                    className="w-32 md:w-30 h-12 flex-shrink-0 flex items-center justify-center hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer"
                                 >
                                     <img
                                         src={logo}

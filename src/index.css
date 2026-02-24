@@ -5,7 +5,7 @@
     --brand-orange: #f4aa38;
     --brand-gold: #FBB03B;
     --brand-orange-rgb: 244, 170, 56;
-    --grid-line: rgba(0, 0, 0, 0.04);
+    --grid-line: rgba(0, 0, 0, 0.08); /* Doubled from 0.04 to 0.08 */
 }
 
 /* Vertical Grid System */

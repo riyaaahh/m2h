@@ -37,9 +37,9 @@ const AboutShowcase = () => {
                     <p className="text-[#f4aa38] tracking-[0.2em] font-medium uppercase mb-6 text-sm">
                         Redefining Boundaries
                     </p>
-                    <h2 className="text-5xl md:text-8xl font-bold leading-tight tracking-tighter mb-8">
-                        Innovating <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f4aa38] to-yellow-200">Beyond</span> <br />
-                        the Ordinary.
+                    <h2 className="text-[3rem] md:text-[5rem] font-medium leading-[1] tracking-tighter mb-8  pb-14 text-white">
+                        Innovating <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f4aa38] to-yellow-500">Beyond</span> <br />
+                        The Ordinary.
                     </h2>
                 </motion.div>
 
@@ -57,8 +57,8 @@ const AboutShowcase = () => {
                             transition={{ delay: i * 0.2, duration: 0.8 }}
                             className="bg-white/5 backdrop-blur-md border border-white/10 p-10 rounded-[2rem] hover:bg-white/10 transition-colors duration-500 group"
                         >
-                            <h3 className="text-2xl font-semibold mb-4 group-hover:text-[#f4aa38] transition-colors">{item.title}</h3>
-                            <p className="text-white/60 leading-relaxed font-light">{item.text}</p>
+                            <h3 className="text-2xl font-semibold mb-4 group-hover:text-[#f4aa38] transition-colors lowercase">{item.title}</h3>
+                            <p className="text-white/60 leading-relaxed font-light lowercase">{item.text}</p>
                         </motion.div>
                     ))}
                 </div>

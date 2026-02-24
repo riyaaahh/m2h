@@ -16,26 +16,22 @@ const Home = () => {
     return (
         <div className="min-h-screen bg-white text-black selection:bg-[#f4aa38]/10 relative overflow-x-hidden">
 
-            {/* Background Vertical Grid Overlay */}
-            <div className="fixed inset-0 vertical-grid pointer-events-none opacity-40 z-0" />
+
 
             {/* Cinematic Background Glows */}
-            <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
                 <div className="absolute top-[-20%] right-[-10%] w-[80%] h-[70%] rounded-full opacity-[0.05] animate-glow-orange blur-[140px]" />
                 <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full opacity-[0.03] animate-glow-gold blur-[120px]" />
             </div>
 
             {/* HERO */}
             <Hero />
-            {/* CONTENT FLOW */}
-            <AboutShowcase />
             <Partners />
+
+            <AboutShowcase />
             <StackingCards />
             {/* <AboutHome /> */}
             <SuccessByNumbers />
-
-
-
             <TechStack />
             <CTA />
         </div>

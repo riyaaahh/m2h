@@ -95,9 +95,9 @@ export default function TechStack() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="text-[3rem] md:text-[5rem] font-medium leading-[0.9] tracking-tight lowercase text-black max-w-[800px]"
+                            className="text-[3rem] md:text-[5rem] font-medium leading-[0.9] tracking-tight  text-black max-w-[800px]"
                         >
-                            the <span className="text-[#f4aa38] italic">technologies</span> behind the transformation
+                            The <span className="text-[#f4aa38] italic">Technologies </span><span className="whitespace-nowrap">Behind The Transformation</span>
                         </motion.h2>
                     </div>
                 </div>

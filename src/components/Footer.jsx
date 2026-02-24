@@ -7,10 +7,10 @@ const Footer = () => {
 
     const footerLinks = {
         business: [
-            { label: 'AI', path: '/business#ai' },
-            { label: 'Fintek', path: '/business#fintek' },
-            { label: 'HRMS', path: '/business#hrms' },
-            { label: 'Healthcare', path: '/business#healthcare' },
+            { label: 'AI', path: 'business/ai' },
+            { label: 'Fintek', path: '/business/fintech' },
+            { label: 'HRMS', path: '/business/hrms' },
+            { label: 'Healthcare', path: '/business/healthcare' },
         ],
         company: [
             { label: 'About Us', path: '/about' },
@@ -207,7 +207,7 @@ const Footer = () => {
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="px-10 py-5 bg-black text-white rounded-full text-[0.9rem] font-bold uppercase tracking-widest hover:bg-[#f4aa38] transition-all duration-300 shadow-xl shadow-black/10"
+                                className="px-10 h-11 flex items-center justify-center bg-black text-white rounded-full text-[0.9rem] font-bold uppercase tracking-widest hover:bg-[#f4aa38] transition-all duration-300 shadow-xl shadow-black/10"
                             >
                                 Get in touch
                             </motion.button>

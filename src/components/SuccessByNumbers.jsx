@@ -7,35 +7,32 @@ const stats = [
         value: 20,
         suffix: "+",
         label: "years of experience",
-        description: "pioneering digital solutions since 2005"
     },
     {
         id: 2,
         value: 200,
         suffix: "",
         label: "experienced professionals",
-        description: "dedicated team of experts"
+
     },
     {
         id: 3,
         value: 80,
         suffix: "",
         label: "countries served",
-        description: "global footprint across continents"
+
     },
     {
         id: 4,
         value: 500,
         suffix: "+",
         label: "projects delivered",
-        description: "successful deployments worldwide"
     },
     {
         id: 5,
         value: 500,
         suffix: "+",
         label: "happy clients",
-        description: "national & international partnerships"
     }
 ];
 
@@ -97,9 +94,9 @@ export default function SuccessByNumbers() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
-                    className="text-[3rem] md:text-[5rem] font-medium leading-[0.9] tracking-tight lowercase text-black max-w-[900px]"
+                    className="text-[3rem] md:text-[5rem] font-medium leading-[1.1] tracking-tighter  text-black max-w-none"
                 >
-                    quantifying our <span className="text-[#f4aa38]">commitment</span> to <span className="text-black/40">excellence</span>
+                    Quantifying Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f4aa38] to-yellow-500">Commitment</span> <br /> To <span className="bg-clip-text bg-gradient-to-r from-[#f4aa38] to-yellow-500">Excellence</span>
                 </motion.h2>
             </div>
 
@@ -113,7 +110,7 @@ export default function SuccessByNumbers() {
                         transition={{ delay: 0.1 * index, duration: 0.8 }}
                         className="flex flex-col gap-4 group cursor-default"
                     >
-                        <div className="text-[4rem] md:text-[5rem] font-light leading-none text-black flex items-baseline gap-1 group-hover:text-[#f4aa38] transition-colors duration-500">
+                        <div className="text-[4rem] md:text-[5rem] font-medium leading-none text-black flex items-baseline gap-1 group-hover:text-[#f4aa38] transition-colors duration-500">
                             <CountUp to={stat.value} suffix={stat.suffix} />
                         </div>
                         <div className="h-[1px] w-full bg-black/10 group-hover:bg-[#f4aa38]/30 transition-colors duration-500 origin-left"></div>
